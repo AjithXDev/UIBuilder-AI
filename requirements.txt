@@ -1,0 +1,9 @@
+crewai
+python-dotenv
+fastapi
+uvicorn
+langchain
+langchain-groq
+pydantic
+
+
