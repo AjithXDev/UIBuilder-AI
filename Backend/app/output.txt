@@ -1,0 +1,223 @@
+FILE: package.json
+```json
+{
+  "name": "counter-website",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "framer-motion": "^7.5.1",
+    "lucide-react": "^0.6.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.1.8"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^2.1.0",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.16",
+    "vite": "^3.1.0"
+  }
+}
+```
+
+FILE: vite.config.js
+```javascript
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+});
+```
+
+FILE: tailwind.config.js
+```javascript
+module.exports = {
+  content: [
+    './src/**/*.{js,jsx,ts,tsx}',
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+FILE: postcss.config.js
+```javascript
+module.exports = {
+  plugins: {
+    autoprefixer: {},
+    tailwindcss: {},
+  }
+}
+```
+
+FILE: index.html
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Counter Website</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>
+```
+
+FILE: src/main.jsx
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+```
+
+FILE: src/App.jsx
+```javascript
+import React from 'react';
+import { motion } from 'framer-motion';
+import Counter from './components/Counter';
+import Hero from './components/Hero';
+import Footer from './components/Footer';
+
+function App() {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="h-screen flex flex-col"
+    >
+      <Hero />
+      <Counter />
+      <Footer />
+    </motion.div>
+  );
+}
+
+export default App;
+```
+
+FILE: src/index.css
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gray-100;
+}
+
+h1 {
+  @apply text-3xl font-bold;
+}
+
+p {
+  @apply text-lg;
+}
+```
+
+FILE: src/components/Counter.jsx
+```javascript
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <motion.div
+      initial={{ y: 100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="flex justify-center items-center h-screen"
+    >
+      <div className="bg-white p-10 rounded-lg shadow-lg">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="text-3xl font-bold"
+        >
+          {count}
+        </motion.p>
+        <div className="flex space-x-4">
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={() => setCount(count - 1)}
+          >
+            Decrement
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={() => setCount(count + 1)}
+          >
+            Increment
+          </motion.button>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+export default Counter;
+```
+
+FILE: src/components/Hero.jsx
+```javascript
+import React from 'react';
+import { motion } from 'framer-motion';
+
+function Hero() {
+  return (
+    <motion.div
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="h-screen flex justify-center items-center bg-blue-500 text-white"
+    >
+      <h1 className="text-5xl font-bold">Counter Website</h1>
+    </motion.div>
+  );
+}
+
+export default Hero;
+```
+
+FILE: src/components/Footer.jsx
+```javascript
+import React from 'react';
+import { motion } from 'framer-motion';
+
+function Footer() {
+  return (
+    <motion.div
+      initial={{ y: 100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="h-screen flex justify-center items-center bg-gray-200 text-gray-500"
+    >
+      <p className="text-lg"> 2024 Counter Website</p>
+    </motion.div>
+  );
+}
+
+export default Footer;
+```
